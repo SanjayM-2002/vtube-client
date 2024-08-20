@@ -12,7 +12,7 @@ const VTubeHome = () => {
   useEffect(() => {
     const getVideos = async () => {
       try {
-        const res = await axios.get(`${WATCH_BASE_URL}/watch/getVideos`);
+        const res = await axios.get(`watchService/watch/getVideos`);
         console.log(res);
         setVideos(res.data);
         setLoading(false); // Set loading to false when videos are fetched

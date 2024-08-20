@@ -45,7 +45,7 @@ const UploadForm = () => {
       const formData = new FormData();
       formData.append('filename', selectedFile.name);
       const initializeRes = await axios.post(
-        `${UPLOAD_BASE_URL}/uploads/initialize`,
+        `uploadService/uploads/initialize`,
         formData,
         {
           headers: {
@@ -75,7 +75,7 @@ const UploadForm = () => {
         chunkFormData.append('uploadId', uploadId);
 
         const uploadPromise = axios.post(
-          `${UPLOAD_BASE_URL}/uploads`,
+          `uploadService/uploads`,
           chunkFormData,
           {
             headers: {
@@ -90,17 +90,14 @@ const UploadForm = () => {
 
       ////////////////////////////////////////////////////
 
-      const completeRes = await axios.post(
-        `${UPLOAD_BASE_URL}/uploads/complete`,
-        {
-          filename: selectedFile.name,
-          totalChunks: totalChunks,
-          uploadId: uploadId,
-          title: title,
-          description: description,
-          author: author,
-        }
-      );
+      const completeRes = await axios.post(`uploadService/uploads/complete`, {
+        filename: selectedFile.name,
+        totalChunks: totalChunks,
+        uploadId: uploadId,
+        title: title,
+        description: description,
+        author: author,
+      });
 
       console.log(completeRes.data);
     } catch (error) {
